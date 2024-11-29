@@ -28,7 +28,7 @@ func run() {
 func main() {
 	mainthread.Run(func() {
 		http.HandleFunc("/generate-maze", func(w http.ResponseWriter, r *http.Request) {
-			run()
+			mainthread.Call(run)
 			w.Write([]byte("Maze generated"))
 		})
 
