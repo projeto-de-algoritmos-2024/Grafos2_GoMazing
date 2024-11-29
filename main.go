@@ -1,9 +1,10 @@
 package main
 
 import (
+	"net/http"
 	"time"
 
-	"github.com/faiface/pixel/pixelgl"
+	"github.com/faiface/mainthread"
 	"github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/algorithms"
 	"github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/maze"
 )
@@ -25,5 +26,12 @@ func run() {
 }
 
 func main() {
-	pixelgl.Run(run)
+	mainthread.Run(func() {
+		http.HandleFunc("/generate-maze", func(w http.ResponseWriter, r *http.Request) {
+			run()
+			w.Write([]byte("Maze generated"))
+		})
+
+		http.ListenAndServe(":8080", nil)
+	})
 }
