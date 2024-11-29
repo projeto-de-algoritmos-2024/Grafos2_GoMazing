@@ -1,11 +1,21 @@
 version: "3.8"
 
 services:
-  gomazing:
-    image: grafos2_gomazing_gomazing
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     environment:
       - DISPLAY=${DISPLAY}
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix # Share the X11 socket for GUI applications
-      - /dev/dri:/dev/dri # Share Direct Rendering Interface for GPU access
-    privileged: true # Allow the container to access hardware more directly
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    ports:
+      - "8080:8080"
+    privileged: true
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:80"
