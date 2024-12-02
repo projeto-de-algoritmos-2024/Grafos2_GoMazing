@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/faiface/mainthread"
+	"github.com/faiface/pixel/pixelgl"
 	"github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/algorithms"
 	"github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/maze"
 )
@@ -28,7 +29,9 @@ func run() {
 func main() {
 	mainthread.Run(func() {
 		http.HandleFunc("/generate-maze", func(w http.ResponseWriter, r *http.Request) {
-			mainthread.Call(run)
+			mainthread.Call(func() {
+				pixelgl.Run(run)
+			})
 			w.Write([]byte("Maze generated"))
 		})
 
