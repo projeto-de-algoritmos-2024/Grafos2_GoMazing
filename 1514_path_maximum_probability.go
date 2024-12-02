@@ -1,80 +1,73 @@
-package main
+import "container/heap"
 
-import (
-	"container/heap"
-)
-
-func maxProbability(n int, edges [][]int, succProb []float64, start int, end int) float64 {
+func maxProbability(n int, edges [][]int, succProb []float64, start_node int, end_node int) float64 {
 
 	graph := make([][]struct {
-		node int
+		to   int
 		prob float64
 	}, n)
+
 	for i, edge := range edges {
 		a, b := edge[0], edge[1]
-		prob := succProb[i]
+		p := succProb[i]
 		graph[a] = append(graph[a], struct {
-			node int
+			to   int
 			prob float64
-		}{b, prob})
+		}{b, p})
 		graph[b] = append(graph[b], struct {
-			node int
+			to   int
 			prob float64
-		}{a, prob})
+		}{a, p})
 	}
 
-	type item struct {
-		node int
-		prob float64
-	}
-	pq := &priorityQueue{}
+	maxProb := make([]float64, n)
+	maxProb[start_node] = 1.0
+
+	pq := &PriorityQueue{}
 	heap.Init(pq)
-	heap.Push(pq, item{start, 1.0})
-
-	probTo := make([]float64, n)
-	probTo[start] = 1.0
+	heap.Push(pq, &Item{node: start_node, prob: 1.0})
 
 	for pq.Len() > 0 {
-		curr := heap.Pop(pq).(item)
-		currNode, currProb := curr.node, curr.prob
+		current := heap.Pop(pq).(*Item)
+		curNode, curProb := current.node, current.prob
 
-		if currNode == end {
-			return currProb
+		if curProb < maxProb[curNode] {
+			continue
 		}
 
-		for _, neighbor := range graph[currNode] {
-			nextNode, edgeProb := neighbor.node, neighbor.prob
-			newProb := currProb * edgeProb
-			if newProb > probTo[nextNode] {
-				probTo[nextNode] = newProb
-				heap.Push(pq, item{nextNode, newProb})
+		for _, neighbor := range graph[curNode] {
+			nextNode, edgeProb := neighbor.to, neighbor.prob
+			newProb := curProb * edgeProb
+
+			if newProb > maxProb[nextNode] {
+				maxProb[nextNode] = newProb
+				heap.Push(pq, &Item{node: nextNode, prob: newProb})
 			}
 		}
 	}
 
-	return 0.0
+	return maxProb[end_node]
 }
 
-type priorityQueue []item
-
-func (pq priorityQueue) Len() int { return len(pq) }
-
-func (pq priorityQueue) Less(i, j int) bool {
-	return pq[i].prob > pq[j].prob
+type Item struct {
+	node int
+	prob float64
 }
 
-func (pq priorityQueue) Swap(i, j int) {
-	pq[i], pq[j] = pq[j], pq[i]
+type PriorityQueue []*Item
+
+func (pq PriorityQueue) Len() int           { return len(pq) }
+func (pq PriorityQueue) Less(i, j int) bool { return pq[i].prob > pq[j].prob }
+func (pq PriorityQueue) Swap(i, j int)      { pq[i], pq[j] = pq[j], pq[i] }
+
+func (pq *PriorityQueue) Push(x interface{}) {
+	*pq = append(*pq, x.(*Item))
 }
 
-func (pq *priorityQueue) Push(x interface{}) {
-	*pq = append(*pq, x.(item))
-}
-
-func (pq *priorityQueue) Pop() interface{} {
+func (pq *PriorityQueue) Pop() interface{} {
 	old := *pq
 	n := len(old)
 	item := old[n-1]
-	*pq = old[0 : n-1]
+	*pq = old[:n-1]
 	return item
 }
