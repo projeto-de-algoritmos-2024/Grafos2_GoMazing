@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios do LeetCode</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Exercícios do LeetCode</h1>
+        <p><strong>Número da Lista</strong>: 57<br>
+        <strong>Conteúdo da Disciplina</strong>: Grafos 2</p>
+        <h2>Alunos</h2>
+        <table>
+            <tr>
+                <th>Matrícula</th>
+                <th>Aluno</th>
+            </tr>
+            <tr>
+                <td>19/0139323</td>
+                <td>Pedro Menezes Rodiguero</td>
+            </tr>
+        </table>
+        <h2>Sobre</h2>
+        <p>Para desenvolver o conteúdo abordado no tópico de Grafos1, resolvi 5 exercícios do LeetCode, sendo eles, 4 de nível difícil e 1 de nível médio.</p>
+        <h2>Screenshots</h2>
+        <ul>
+            <li><a href="https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/description/" target="_blank">1489 (Difícil) - Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree</a></li>
+            <img src="https://raw.githubusercontent.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1489.png" alt="Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree">
+            
+            <li><a href="https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/description/" target="_blank">1579 (Difícil) - Remove Max Number of Edges to Keep Graph Fully Traversable</a></li>
+            <img src="https://raw.githubusercontent.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/leetcode/images/1579.png" alt="Remove Max Number of Edges to Keep Graph Fully Traversable">
+            
+            <li><a href="https://leetcode.com/problems/path-with-maximum-probability/description/" target="_blank">1514 (Médio) - Path with Maximum Probability</a></li>
+            <img src="https://raw.githubusercontent.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/leetcode/images/1514.png" alt="Path with Maximum Probability">
+            
+            <li><a href="https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/description/" target="_blank">1368 (Difícil) - Minimum Cost to Make at Least One Valid Path in a Grid</a></li>
+            <img src="https://raw.githubusercontent.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/leetcode/images/1368.png" alt="Minimum Cost to Make at Least One Valid Path in a Grid">
+            
+            <li><a href="https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/description/" target="_blank">882 (Difícil) - Reachable Nodes in Subdivided Graph</a></li>
+            <img src="https://raw.githubusercontent.com/projeto-de-algoritmos-2024/Grafos1_GoMazing/leetcode/images/882.png" alt="Reachable Nodes in Subdivided Graph">
+        </ul>
+        <h2>Instalação</h2>
+        <p><strong>Linguagem</strong>: Go, Python</p>
+        <h3>1. Clone o repositório</h3>
+        <pre><code>git clone https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing</code></pre>
+        <h3>2. Go</h3>
+        <pre><code>go mod init
+            go mod tidy
+            go run 1489_edges_mst.go 
+            go run 1579_max_number_edges.go
+            go run 1514_path_maximum_probability.go
+            go run 1368_path_to_grid.go
+            go run 882_reachable_nodes.go</code></pre>
+        <h2>Uso</h2>
+        <p>Para aplicar os casos de teste (in e out), basta acessar o link referente ao exercício no LeetCode e inserí-los no prompt de comando, também é possível gerar novos casos de teste, desde que cumpram os requisitos do exercício em questão.</p>
+        <h2>Apresentação</h2>
+        <p>A apresentação da entrega pode ser visualizada <a href="https://youtu.be/ztdb40Yrwtw" target="_blank">aqui</a>.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Pedro Menezes Rodiguero. All rights reserved.</p>
+    </div>
+    <script>
+        const toggleDarkMode = document.getElementById('toggle-dark-mode');
+        toggleDarkMode.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

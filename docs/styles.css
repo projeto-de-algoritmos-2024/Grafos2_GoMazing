@@ -1,0 +1,132 @@
+:root {
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --table-header-bg: #f2f2f2;
+  --footer-bg: #333;
+  --footer-text-color: #fff;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--table-header-bg);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+ul li a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+ul li a:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--link-hover-color);
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--footer-bg);
+  color: var(--footer-text-color);
+  margin-top: 20px;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #0d1117; /* GitHub dark blue */
+    --text-color: #c9d1d9;
+    --link-color: #58a6ff;
+    --link-hover-color: #1f6feb;
+    --table-header-bg: #161b22;
+    --footer-bg: #0d1117;
+    --footer-text-color: #c9d1d9;
+  }
+
+  .container {
+    background: #161b22;
+  }
+
+  pre {
+    background: #161b22;
+    border: 1px solid #30363d;
+  }
+}
