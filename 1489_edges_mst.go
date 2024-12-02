@@ -1,98 +1,100 @@
+package main
+
 import (
 	"sort"
 )
 
 func findCriticalAndPseudoCriticalEdges(n int, edges [][]int) [][]int {
-
-	for i := range edges {
-		edges[i] = append(edges[i], i)
+	type Edge struct {
+		u, v, weight, index int
 	}
 
-	sort.Slice(edges, func(i, j int) bool {
-		return edges[i][2] < edges[j][2]
+	edgeList := make([]Edge, len(edges))
+	for i, e := range edges {
+		edgeList[i] = Edge{e[0], e[1], e[2], i}
+	}
+
+	sort.Slice(edgeList, func(i, j int) bool {
+		return edgeList[i].weight < edgeList[j].weight
 	})
 
-	findMST := func(include, exclude int) int {
-		uf := newUnionFind(n)
+	parent := make([]int, n)
+	rank := make([]int, n)
+
+	var find func(int) int
+	find = func(x int) int {
+		if parent[x] != x {
+			parent[x] = find(parent[x])
+		}
+		return parent[x]
+	}
+
+	union := func(x, y int) bool {
+		rootX := find(x)
+		rootY := find(y)
+		if rootX != rootY {
+			if rank[rootX] > rank[rootY] {
+				parent[rootY] = rootX
+			} else if rank[rootX] < rank[rootY] {
+				parent[rootX] = rootY
+			} else {
+				parent[rootY] = rootX
+				rank[rootX]++
+			}
+			return true
+		}
+		return false
+	}
+
+	calculateMST := func(exclude, include int) int {
+		for i := range parent {
+			parent[i] = i
+			rank[i] = 0
+		}
 		totalWeight := 0
+		edgesUsed := 0
+
 		if include != -1 {
-			edge := edges[include]
-			if uf.union(edge[0], edge[1]) {
-				totalWeight += edge[2]
+			e := edgeList[include]
+			if union(e.u, e.v) {
+				totalWeight += e.weight
+				edgesUsed++
 			}
 		}
-		for i, edge := range edges {
+
+		for i, e := range edgeList {
 			if i == exclude {
 				continue
 			}
-			if uf.union(edge[0], edge[1]) {
-				totalWeight += edge[2]
+			if union(e.u, e.v) {
+				totalWeight += e.weight
+				edgesUsed++
+				if edgesUsed == n-1 {
+					break
+				}
 			}
 		}
 
-		if uf.count() > 1 {
-			return 1<<31 - 1
+		if edgesUsed == n-1 {
+			return totalWeight
 		}
-		return totalWeight
+		return 1<<31 - 1
 	}
 
-	originalWeight := findMST(-1, -1)
+	originalMSTWeight := calculateMST(-1, -1)
 
-	critical := []int{}
-	pseudoCritical := []int{}
+	criticalEdges := []int{}
+	pseudoCriticalEdges := []int{}
 
-	for i, edge := range edges {
+	for i := range edgeList {
 
-		if findMST(-1, i) > originalWeight {
-			critical = append(critical, edge[3])
-		} else if findMST(i, -1) == originalWeight {
+		if calculateMST(i, -1) > originalMSTWeight {
+			criticalEdges = append(criticalEdges, edgeList[i].index)
+		} else if calculateMST(-1, i) == originalMSTWeight {
 
-			pseudoCritical = append(pseudoCritical, edge[3])
+			pseudoCriticalEdges = append(pseudoCriticalEdges, edgeList[i].index)
 		}
 	}
 
-	return [][]int{critical, pseudoCritical}
-}
-
-type unionFind struct {
-	parent, rank []int
-	count        int
-}
-
-func newUnionFind(size int) *unionFind {
-	parent := make([]int, size)
-	rank := make([]int, size)
-	for i := range parent {
-		parent[i] = i
-	}
-	return &unionFind{parent, rank, size}
-}
-
-func (uf *unionFind) find(x int) int {
-	if uf.parent[x] != x {
-		uf.parent[x] = uf.find(uf.parent[x])
-	}
-	return uf.parent[x]
-}
-
-func (uf *unionFind) union(x, y int) bool {
-	rootX := uf.find(x)
-	rootY := uf.find(y)
-	if rootX == rootY {
-		return false
-	}
-	if uf.rank[rootX] > uf.rank[rootY] {
-		uf.parent[rootY] = rootX
-	} else if uf.rank[rootX] < uf.rank[rootY] {
-		uf.parent[rootX] = rootY
-	} else {
-		uf.parent[rootY] = rootX
-		uf.rank[rootX]++
-	}
-	uf.count--
-	return true
-}
-
-func (uf *unionFind) count() int {
-	return uf.count
+	return [][]int{criticalEdges, pseudoCriticalEdges}
 }
