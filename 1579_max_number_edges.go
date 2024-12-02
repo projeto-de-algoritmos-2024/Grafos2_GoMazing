@@ -17,7 +17,8 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
 		return uf
 	}
 
-	find := func(uf *UnionFind, x int) int {
+	var find func(uf *UnionFind, x int) int
+	find = func(uf *UnionFind, x int) int {
 		if uf.parent[x] != x {
 			uf.parent[x] = find(uf, uf.parent[x])
 		}
