@@ -14,19 +14,19 @@ Para desenvolver o conteúdo abordado no tópico de Grafos2, resolvi 5 exercíci
 ## Screenshots
 
 - [1489 (Difícil) - Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree](https://leetcode.com/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/description/)
-<img width="734" alt="Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/leetcode/screenshots/1489.png">
+<img width="734" alt="Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1489.png">
 
 - [1579 (Difícil) - Remove Max Number of Edges to Keep Graph Fully Traversable](https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/description/)
-<img width="734" alt="Remove Max Number of Edges to Keep Graph Fully Traversable" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/leetcode/screenshots/1579.png">
+<img width="734" alt="Remove Max Number of Edges to Keep Graph Fully Traversable" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1579.png">
 
 - [1514 (Médio) - Path with Maximum Probability](https://leetcode.com/problems/path-with-maximum-probability/description/)
-<img width="734" alt="Path with Maximum Probability" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/leetcode/screenshots/1514.png">
+<img width="734" alt="Path with Maximum Probability" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1514.png">
 
 - [1368 (Difícil) - Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/description/)
-<img width="734" alt="Minimum Cost to Make at Least One Valid Path in a Grid" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/leetcode/screenshots/685_accepted.png">
+<img width="734" alt="Minimum Cost to Make at Least One Valid Path in a Grid" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/685_accepted.png">
 
 - [882 (Difícil) - Reachable Nodes in Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/description/)
-<img width="734" alt="Reachable Nodes in Subdivided Graph" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/leetcode/screenshots/882.png">
+<img width="734" alt="Reachable Nodes in Subdivided Graph" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/882.png">
 
 ## Instalação 
 **Linguagem**: Go<br>
