@@ -23,7 +23,7 @@ Para desenvolver o conteúdo abordado no tópico de Grafos2, resolvi 5 exercíci
 <img width="734" alt="Path with Maximum Probability" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1514.png">
 
 - [1368 (Difícil) - Minimum Cost to Make at Least One Valid Path in a Grid](https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/description/)
-<img width="734" alt="Minimum Cost to Make at Least One Valid Path in a Grid" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/685_accepted.png">
+<img width="734" alt="Minimum Cost to Make at Least One Valid Path in a Grid" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/1368.png">
 
 - [882 (Difícil) - Reachable Nodes in Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/description/)
 <img width="734" alt="Reachable Nodes in Subdivided Graph" src="https://github.com/projeto-de-algoritmos-2024/Grafos2_GoMazing/blob/leetcode/images/882.png">
