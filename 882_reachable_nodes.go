@@ -2,73 +2,15 @@ package main
 
 import (
 	"container/heap"
+	"math"
 )
 
+type Edge struct {
+	to, weight int
+}
+
 type Item struct {
-	node, moves int
-}
-
-func reachableNodes(edges [][]int, maxMoves int, n int) int {
-	graph := make(map[int]map[int]int)
-	for _, edge := range edges {
-		u, v, cnt := edge[0], edge[1], edge[2]
-		if graph[u] == nil {
-			graph[u] = make(map[int]int)
-		}
-		if graph[v] == nil {
-			graph[v] = make(map[int]int)
-		}
-		graph[u][v] = cnt
-		graph[v][u] = cnt
-	}
-
-	pq := &PriorityQueue{}
-	heap.Init(pq)
-	heap.Push(pq, &Item{0, maxMoves})
-
-	visited := make(map[int]int)
-
-	reachable := 0
-
-	for pq.Len() > 0 {
-		item := heap.Pop(pq).(*Item)
-		node, moves := item.node, item.moves
-
-		if remaining, seen := visited[node]; seen && remaining >= moves {
-			continue
-		}
-		visited[node] = moves
-		reachable++
-
-		if moves > 0 {
-			for neighbor, cnt := range graph[node] {
-
-				usedMoves := min(moves, cnt)
-				graph[node][neighbor] -= usedMoves
-				graph[neighbor][node] -= usedMoves
-				reachable += usedMoves
-
-				if moves > cnt && (!visited[neighbor] || visited[neighbor] < moves-cnt-1) {
-					heap.Push(pq, &Item{neighbor, moves - cnt - 1})
-				}
-			}
-		}
-	}
-
-	for _, edge := range edges {
-		u, v, cnt := edge[0], edge[1], edge[2]
-
-		reachable += min(cnt, visited[u]+visited[v])
-	}
-
-	return reachable
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
+	node, dist int
 }
 
 type PriorityQueue []*Item
@@ -76,7 +18,7 @@ type PriorityQueue []*Item
 func (pq PriorityQueue) Len() int { return len(pq) }
 
 func (pq PriorityQueue) Less(i, j int) bool {
-	return pq[i].moves > pq[j].moves
+	return pq[i].dist < pq[j].dist
 }
 
 func (pq PriorityQueue) Swap(i, j int) {
@@ -93,4 +35,71 @@ func (pq *PriorityQueue) Pop() interface{} {
 	item := old[n-1]
 	*pq = old[:n-1]
 	return item
+}
+
+func reachableNodes(edges [][]int, maxMoves int, n int) int {
+
+	adj := make([][]Edge, n)
+	for _, e := range edges {
+		u, v, w := e[0], e[1], e[2]
+		adj[u] = append(adj[u], Edge{v, w})
+		adj[v] = append(adj[v], Edge{u, w})
+	}
+
+	dist := make([]int, n)
+	for i := range dist {
+		dist[i] = math.MaxInt32
+	}
+	dist[0] = 0
+	pq := &PriorityQueue{}
+	heap.Init(pq)
+	heap.Push(pq, &Item{0, 0})
+
+	for pq.Len() > 0 {
+		item := heap.Pop(pq).(*Item)
+		d, neigh := item.dist, item.node
+
+		if d > dist[neigh] {
+			continue
+		}
+
+		for _, edge := range adj[neigh] {
+			v, count := edge.to, edge.weight
+			newDist := d + count + 1
+			if newDist < dist[v] && newDist <= maxMoves {
+				dist[v] = newDist
+				heap.Push(pq, &Item{v, newDist})
+			}
+		}
+	}
+
+	reachables := 0
+	for i := 0; i < n; i++ {
+		if dist[i] <= maxMoves {
+			reachables++
+		}
+	}
+
+	for _, e := range edges {
+		u, v, count := e[0], e[1], e[2]
+		canGoFromU := max(0, maxMoves-dist[u])
+		canGoFromV := max(0, maxMoves-dist[v])
+		reachables += min(count, canGoFromU+canGoFromV)
+	}
+
+	return reachables
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
