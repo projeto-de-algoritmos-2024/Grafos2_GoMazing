@@ -42,15 +42,14 @@ func reachableNodes(edges [][]int, maxMoves int, n int) int {
 
 		if moves > 0 {
 			for neighbor, cnt := range graph[node] {
+
 				usedMoves := min(moves, cnt)
 				graph[node][neighbor] -= usedMoves
 				graph[neighbor][node] -= usedMoves
 				reachable += usedMoves
 
-				if moves > cnt {
-					if remaining, seen := visited[neighbor]; !seen || remaining < moves-cnt-1 {
-						heap.Push(pq, &Item{neighbor, moves - cnt - 1})
-					}
+				if moves > cnt && (!visited[neighbor] || visited[neighbor] < moves-cnt-1) {
+					heap.Push(pq, &Item{neighbor, moves - cnt - 1})
 				}
 			}
 		}
@@ -58,6 +57,7 @@ func reachableNodes(edges [][]int, maxMoves int, n int) int {
 
 	for _, edge := range edges {
 		u, v, cnt := edge[0], edge[1], edge[2]
+
 		reachable += min(cnt, visited[u]+visited[v])
 	}
 
