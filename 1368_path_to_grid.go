@@ -4,6 +4,10 @@ import (
 	"container/heap"
 )
 
+type Item struct {
+	x, y, cost int
+}
+
 func minCost(grid [][]int) int {
 	m, n := len(grid), len(grid[0])
 	directions := []struct {
@@ -13,10 +17,6 @@ func minCost(grid [][]int) int {
 		{0, -1}, // left
 		{1, 0},  // down
 		{-1, 0}, // up
-	}
-
-	type Item struct {
-		x, y, cost int
 	}
 
 	pq := &PriorityQueue{}
